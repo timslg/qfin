@@ -1,0 +1,11 @@
+version: '3.0'
+
+services:
+ qfin-frontend:
+  build: 
+    context: "./qfin-frontend"
+    dockerfile: "./Dockerfile.dev"
+  ports:
+  - "4200:4200"
+  volumes:
+      - ./qfin-frontend/src:/app/src
