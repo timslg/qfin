@@ -1,11 +1,30 @@
 version: '3.0'
 
 services:
- qfin-frontend:
-  build: 
-    context: "./qfin-frontend"
-    dockerfile: "./Dockerfile.dev"
-  ports:
-  - "4200:4200"
-  volumes:
-  - ./qfin-frontend/src:/app/src:ro
+  proxy:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+    - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+    - frontend
+    - backend
+  
+  frontend:
+    build: 
+      context: "./qfin-frontend"
+      dockerfile: "./Dockerfile.dev"
+    ports:
+    - "4200:4200"
+    volumes:
+    - ./qfin-frontend/src:/app/src:ro
+
+  backend:
+    build:
+      context: "./qfin-backend"
+      dockerfile: "./Dockerfile.dev"
+    ports:
+    - "3000:3000"
+    volumes:
+    - ./qfin-backend/src:/app/src:ro
