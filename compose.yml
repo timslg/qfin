@@ -8,4 +8,4 @@ services:
   ports:
   - "4200:4200"
   volumes:
-      - ./qfin-frontend/src:/app/src
+  - ./qfin-frontend/src:/app/src:ro
