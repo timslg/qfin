@@ -1,4 +1,10 @@
-on: [workflow_dispatch, push]
+on: 
+  workflow_dispatch:
+    branches:
+    - main
+  push:
+    branches:
+    - main
 name: qfin_deployment
 
 jobs:
