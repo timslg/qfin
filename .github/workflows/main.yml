@@ -16,7 +16,7 @@ jobs:
           username: ${{ secrets.PRIVATE_REGISTRY_USER }}
           password: ${{ secrets.PRIVATE_REGISTRY_PASS }}
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: ./qfin-frontend/
           file: ./qfin-frontend/Dockerfile
@@ -37,13 +37,15 @@ jobs:
           username: ${{ secrets.PRIVATE_REGISTRY_USER }}
           password: ${{ secrets.PRIVATE_REGISTRY_PASS }}
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: ./qfin-backend/
           file: ./qfin-backend/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: '${{ secrets.PRIVATE_REGISTRY_URL }}/qfin-backend:latest'
+          cache-from: type=registry,ref=registry.timschlegel.com/qfin-backend:latest
+          cache-to: type=registry,registry.timschlegel.com/qfin-backend:latest,mode=max
     deployment:
       runs-on: ubuntu-latest
       needs:
