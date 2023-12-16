@@ -44,8 +44,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: '${{ secrets.PRIVATE_REGISTRY_URL }}/qfin-backend:latest'
-          cache-from: type=registry,ref=registry.timschlegel.com/qfin-backend:latest
-          cache-to: type=registry,registry.timschlegel.com/qfin-backend:latest,mode=max
+          cache-from: type=registry,ref=registry.timschlegel.com/qfin-backend:build-cache
+          cache-to: type=registry,registry.timschlegel.com/qfin-backend:build-cache,mode=max
     deployment:
       runs-on: ubuntu-latest
       needs:
