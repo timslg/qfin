@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
   }
 
   signup(name: string, email: string, password: string) {
-    return this.http.post('http://localhost/api/auth/sign-up', {
+    return this.http.post(`${environment.apiUrl}/auth/sign-up`, {
       name,
       email,
       password
@@ -25,7 +26,7 @@ export class AuthService {
   };
 
   singin(email: string, password: string) {
-    return this.http.post('http://localhost/api/auth/sign-in', {
+    return this.http.post(`${environment.apiUrl}/auth/sign-in`, {
       email,
       password
     }).pipe(
