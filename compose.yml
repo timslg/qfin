@@ -25,6 +25,14 @@ services:
       context: "./qfin-backend"
       dockerfile: "./Dockerfile.dev"
     ports:
-    - "3000:3000"
+    - "27017:27017"
     volumes:
     - ./qfin-backend/src:/app/src:ro
+    depends_on:
+    - db
+
+  db:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
