@@ -13,15 +13,15 @@ export const signup: RequestHandler = (req: Request, res: Response, next: NextFu
         password: bcrypt.hashSync(req.body.password, 10)
     });
     user.save().then((user) => {
-        res.send(201);
+        res.sendStatus(201);
     }).catch((err) => {
         console.log(err);
-        res.send(400);
+        res.sendStatus(400);
     })
 }
 
 export const signin: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
-    User.findOne({email: req.body.email}).exec().then((user) => {
+    User.findOne({email: req.body.email}).select('password').exec().then((user) => {
         if (user) {
             if (bcrypt.compareSync(req.body.password, user.password)) {
                 const expiresIn = '1800s';
@@ -34,6 +34,6 @@ export const signin: RequestHandler = (req: Request, res: Response, next: NextFu
             res.status(400).json({ message: "E-Mail not found." });
         }
     }).catch((err) => {
-        res.status(400).json({});
+        res.status(400).json({message: 'unknown error occured'});
     });
 }
