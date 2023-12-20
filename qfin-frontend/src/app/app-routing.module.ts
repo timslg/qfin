@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SignupComponent } from './components/signup/signup.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { authGuard } from './guards/auth.guard';
-import { ProfileComponent } from './components/profile/profile.component';
+
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { AuthComponent } from './features/auth/auth.component';
 
 const routes: Routes = [
-  { path: 'sign-up', component: SignupComponent, },
-  { path: 'sign-in', component: SigninComponent },
-  { path: 'dashboard', component: DashboardComponent, children: [
-    { path: 'profile', component: ProfileComponent }
-  ], canActivate: [authGuard]}
+  {
+    path: 'auth',
+    component: AuthComponent,
+    loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [authGuard]
+  }
 ];
 
 @NgModule({

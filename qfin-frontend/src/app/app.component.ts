@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from './services/test.service';
 
 import { initFlowbite } from 'flowbite';
 
@@ -12,18 +11,10 @@ export class AppComponent implements OnInit {
   title = 'qfin-frontend';
   test: String | undefined;
   
-  constructor(public testService: TestService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.showConfig();
     initFlowbite();
   }
 
-  showConfig() {
-    this.testService.getTest()
-      .subscribe(data => {
-        console.log(data)
-        this.test = data['ping']
-      });
-  }
 }
