@@ -4,8 +4,14 @@ import { authGuard } from './guards/auth.guard';
 
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AuthComponent } from './features/auth/auth.component';
+import { HomeComponent } from './features/home/home.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
+  },
   {
     path: 'auth',
     component: AuthComponent,
