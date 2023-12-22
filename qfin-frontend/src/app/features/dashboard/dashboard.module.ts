@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { AccountsComponent } from './pages/accounts/accounts.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
@@ -8,8 +8,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AccountTableComponent } from './components/account-table/account-table.component';
-
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { TableFilterSelectComponent } from './components/table-filter-select/table-filter-select.component';
+import { TransactionFilterPipe } from './pipes/transaction-filter.pipe';
+import { AccountEditComponent } from './pages/account-edit/account-edit.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertService } from './services/alert.service';
+import { TransactionsEditComponent } from './pages/transactions-edit/transactions-edit.component';
 
 
 @NgModule({
@@ -19,7 +25,13 @@ import { AccountTableComponent } from './components/account-table/account-table.
     HeaderComponent,
     SidebarComponent,
     ProfileComponent,
-    AccountTableComponent
+    TransactionsComponent,
+    TableFilterSelectComponent,
+    TransactionFilterPipe,
+    AccountEditComponent,
+    LoadingSpinnerComponent,
+    AlertComponent,
+    TransactionsEditComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +39,9 @@ import { AccountTableComponent } from './components/account-table/account-table.
     SharedModule,
     FormsModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    CurrencyPipe
   ]
 })
 export class DashboardModule { }

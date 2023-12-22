@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/interfaces/user';
+import { User } from 'src/app/features/dashboard/interfaces/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/features/dashboard/services/user.service';
 import { Flowbite } from 'src/app/shared/util/flowbit-fix';

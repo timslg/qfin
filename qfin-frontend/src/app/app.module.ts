@@ -9,9 +9,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './components/alert/alert.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { SharedModule } from './shared/shared.module';
-import { Router } from '@angular/router';
-import { initFlowbite } from 'flowbite';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,6 +36,16 @@ import { initFlowbite } from 'flowbite';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ],

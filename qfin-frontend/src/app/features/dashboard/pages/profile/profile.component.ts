@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/interfaces/user';
+import { User } from 'src/app/features/dashboard/interfaces/user';
 import { UserService } from 'src/app/features/dashboard/services/user.service';
 
 @Component({

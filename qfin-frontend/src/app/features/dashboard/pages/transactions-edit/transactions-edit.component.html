@@ -1,0 +1,57 @@
+<section class="bg-white dark:bg-gray-900">
+    <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">{{ transactionId ? 'Update transaction' : 'Create transaction' }}</h2>
+        <form [formGroup]="transactionFormGroup">
+            <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+                <div class="sm:col-span-2">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input formControlName="name" type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Transaction Name">
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                    <select formControlName="type" name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="account" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account</label>
+                    <select formControlName="account" name="account" id="account" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option *ngFor="let account of accounts" [value]="account._id">{{account.name}}</option>
+                    </select>
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
+                    <input formControlName="amount" type="number" value="{{ (transactionFormGroup.controls['amount'].value | number : '1.2-2')?.replaceAll(',', '') }}" name="amount" id="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0.00">
+                </div>
+                <div class="sm:col-span-2">
+                    <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+                    <input formControlName="date" value="{{ transactionFormGroup.controls['date'].value | date:'yyyy-MM-dd' }}" type="date" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div *ngIf="transactionId; then updateButtons else createButtons"></div>
+                <ng-template #updateButtons>
+                    <button [disabled]="!transactionFormGroup.valid" type="button" (click)="onUpdate()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:cursor-not-allowed disabled:bg-blue-400 disabled:dark:bg-blue-500">
+                        Update
+                    </button>
+                    <button type="button" (click)="onDelete()" class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                        <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                        Delete
+                    </button>
+                    <button [routerLink]="['../']" type="button" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                </ng-template>
+                <ng-template #createButtons>
+                    <button [disabled]="!transactionFormGroup.valid" type="button" (click)="onCreate()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:cursor-not-allowed disabled:bg-blue-400 disabled:dark:bg-blue-500">
+                        Create
+                    </button>
+                    <button [routerLink]="['../']" type="button" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                </ng-template>
+            </div>
+        </form>
+    </div>
+  </section>
