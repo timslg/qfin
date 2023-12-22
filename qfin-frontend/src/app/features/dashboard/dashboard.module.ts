@@ -14,8 +14,8 @@ import { TransactionFilterPipe } from './pipes/transaction-filter.pipe';
 import { AccountEditComponent } from './pages/account-edit/account-edit.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { AlertService } from './services/alert.service';
 import { TransactionsEditComponent } from './pages/transactions-edit/transactions-edit.component';
+import { OverviewComponent } from './pages/overview/overview.component';
 
 
 @NgModule({
@@ -31,7 +31,8 @@ import { TransactionsEditComponent } from './pages/transactions-edit/transaction
     AccountEditComponent,
     LoadingSpinnerComponent,
     AlertComponent,
-    TransactionsEditComponent
+    TransactionsEditComponent,
+    OverviewComponent
   ],
   imports: [
     CommonModule,

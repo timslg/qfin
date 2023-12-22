@@ -25,7 +25,7 @@ export class TransactionsComponent {
   ) {}
 
   ngOnInit() {
-    this.transactionsService.transactions(this.route.snapshot.queryParamMap.get('account')).subscribe((transactions) => {
+    this.transactionsService.getTransactions(this.route.snapshot.queryParamMap.get('account')).subscribe((transactions) => {
       this.transactions = transactions;
     });
     this.accountService.getAccounts().subscribe((accounts) => {

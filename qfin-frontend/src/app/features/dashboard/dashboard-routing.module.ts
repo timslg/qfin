@@ -5,9 +5,14 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { AccountEditComponent } from './pages/account-edit/account-edit.component';
 import { TransactionsEditComponent } from './pages/transactions-edit/transactions-edit.component';
+import { OverviewComponent } from './pages/overview/overview.component';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    component: OverviewComponent
+  },
   {
     path: 'profile',
     component: ProfileComponent

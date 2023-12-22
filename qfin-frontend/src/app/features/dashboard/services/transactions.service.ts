@@ -11,7 +11,7 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) { }
 
-  public transactions(account_id?: string | null) {
+  public getTransactions(account_id?: string | null) {
     let params = new HttpParams();
     if (account_id) {
       params = params.set('account', account_id);
