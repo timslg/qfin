@@ -80,7 +80,7 @@ Docker-Compose will build and run all necessary images (frontend, backend, db, p
 docker-compose up -d
 ```
 
-Visit [http://localhost:4200](http://localhost:4200) to access the app locally.
+Visit [http://localhost](http://localhost) to access the app locally.
 
 3. Shut the app down:
 
