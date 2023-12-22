@@ -4,7 +4,8 @@ import { Transaction } from "../models/transaction.model";
 
 export const getTransactions: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const transactions = await Transaction.find(req.query).populate('account');
+        const accounts = await Account.find({user: req.userId});
+        const transactions = await Transaction.find({account: {'$in': accounts}}).populate('account');
         res.json(transactions);
     } catch (err) {
         next(new Error('Could not get transactions from database'));
